@@ -216,12 +216,12 @@ const Jobs = () => {
             jobAppCount={applicationData.count}
             experiencesCount={experienceData.count}
           />
-         {isLoading ? (
+       {isLoading ? (
   <Loader />
-) : data.jobs === null || data?.jobs.length === 0 ? (
+) : !data?.jobs?.length ? (
   <NotFoundJob />
 ) : (
-  data?.jobs?.map((job: Job) => (
+  data.jobs.map((job: Job) => (
     <JobsCard
       key={job.id}
       Jobsdata={job}
@@ -229,6 +229,7 @@ const Jobs = () => {
     />
   ))
 )}
+
 
           
           <div className="h-full overflow-visible">
