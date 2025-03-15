@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String          @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  bio         String?
+  image       String?   
+  country     String?
+  city        String?
+  dateOfBirth String?
+  role        Role         @default(USER)
+  status      String?
+  resetToken  String?
+  resetTokenExpiry  DateTime?
+  experiences Experience[]
+  applications Application[]
+  notifications Notification[] 
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Experience {
+  id              Int             @id @default(autoincrement())
+  user            User            @relation(fields: [userId], references: [id])
+  userId          String
+  title           String
+  company         String?
+  startDate       String?
+  endDate         String?
+  description     String?
+  experienceLevel ExperienceLevel @default(JUNIOR)
+  location        String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Recruiter {
+  id          String      @id @default(uuid())
+  name        String
+  email       String    @unique
+  password    String 
+  company     String?
+  companyType CompanyType @default(STARTUP)
+  companySize String?
+  image       String?   
+  country     String?
+  city        String?
+  role        Role       @default(RECRUITER)
+  dateOfBirth String?
+  resetToken  String?
+  resetTokenExpiry  DateTime?
+  jobs        Job[]  
+  notifications Notification[] 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Job {
+  id              String             @id @default(uuid())
+  title           String?
+  description     String?
+  location        String?
+  salary          Float?
+  jobType         JobType         @default(FULL_TIME)
+  experienceLevel ExperienceLevel @default(JUNIOR)
+  recruiter       Recruiter       @relation(fields: [recruiterId], references: [id])
+  recruiterId     String
+  applications    Application[]   
+  technologies    Technology[]    @relation("JobTechnologies")
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Technology {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  jobs        Job[]    @relation("JobTechnologies")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Application {
+  id        String      @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  job       Job      @relation(fields: [jobId], references: [id],onDelete: Cascade)
+  jobId     String
+  status    Status   @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id]) 
+  recruiterId String
+  recruiter   Recruiter @relation(fields: [recruiterId], references: [id])
+  message     String  
+  isRead      Boolean  @default(false) 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  RECRUITER
+}
+
+enum Status {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum ExperienceLevel {
+  INTERN
+  JUNIOR
+  MID
+  SENIOR
+  LEAD
+}
+
+enum CompanyType {
+  STARTUP
+  SMALLBUSINESS
+  ENTERPRISE
+  GOVERNMENT
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  REMOTE
+}

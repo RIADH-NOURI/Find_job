@@ -1,0 +1,54 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customBaseQuery from "../config/customBaseQuery";
+
+export const usersApi = createApi({
+  reducerPath: "usersApi",
+  baseQuery: customBaseQuery,
+  tagTypes: ["User"],
+  endpoints: (builder) => ({
+    getAllUsers: builder.query({
+      query: () => "/users",
+    }),
+    getUserById: builder.query({
+      query: (name) => ({
+        url: `/user/${name}`,
+      }),
+      providesTags: ["User"],
+    }),
+    getApplicationByUserId: builder.query({
+      query: (id) => `/user/${id}/applications`,
+    }),
+    createUser: builder.mutation({
+      query: (data) => ({
+        url: "/users",
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
+    }),
+    updateUser: builder.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/user/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    updateProfileImage: builder.mutation({
+        query: ({ id, formData }) => ({
+          url: `/user/${id}/upload`,
+          method: "POST",
+          body: formData, 
+        }),
+        invalidatesTags: ["User"],
+      }),
+    }),
+  })
+
+export const {
+  useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useCreateUserMutation,
+  useGetApplicationByUserIdQuery,
+  useUpdateUserMutation,
+  useUpdateProfileImageMutation,
+} = usersApi;
