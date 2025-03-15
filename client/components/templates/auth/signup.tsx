@@ -286,13 +286,13 @@ export default function Signup({ setIsLogin }: SignupProps) {
             </div>
             <div className="mb-4">
               <label className="block text-sm mb-1 text-text-color">
-                Company Type
+                Company Size
               </label>
               <select
                 {...register("companySize")}
                 className="w-full p-2 border rounded-lg"
               >
-                <option value="">Choose Company Type</option>
+                <option value="">Choose Company Size</option>
                 <option value="1-10">1-10 employees</option>
                 <option value="10-50">10-50 employees</option>
                 <option value="50-100">50-100 employees</option>
