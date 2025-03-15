@@ -81,7 +81,7 @@ const Page = () => {
   
         try {
           const response = await axios.post(
-            `http://localhost:5000/api/v1/recruiter/${recruiterData.id}/upload`,
+            `https://findjob-4vl9.onrender.com/api/v1/recruiter/${recruiterData.id}/upload`,
             formData,
             {
               headers: {

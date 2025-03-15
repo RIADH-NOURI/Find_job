@@ -120,7 +120,7 @@ const Page = () => {
     
           try {
             const response = await axios.post(
-              `http://localhost:5000/api/v1/user/${user.id}/upload`,
+              `https://findjob-4vl9.onrender.com/api/v1/user/${user.id}/upload`,
               formData,
               {
                 headers: {
@@ -317,11 +317,8 @@ const Page = () => {
             experiencesLoading={experiencesLoading}
             user={user}
             isCurrentUser={isCurrentUser}
-            handleShowConfirmForm={()=>
-              {
-                setShowConfirmForm(true);
-              }
-            }
+            handleShowConfirmForm={handleShowConfirmForm}
+             
             handleCreateExperience={() => () => {
               setShowExperienceForm(true);
               setExperience(experience);
