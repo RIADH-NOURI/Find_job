@@ -55,8 +55,8 @@ const DashboardPage = () => {
   
   const { isLoading: isUserLoading, data: user } = useGetUserByIdQuery(selecteId);
   const { isLoading: isExperiencesLoading, data: experiences } = useGetExperiencesByUserQuery(selecteId);
-  const [updateStatusApplication] = useUpdateStatusApplicationMutation();
-  const [deleteRecruiter] = useDeleteRecruiterByIdMutation();
+  const [updateStatusApplication, { isLoading: isUpdateLoading }] = useUpdateStatusApplicationMutation();
+  const [deleteRecruiter, { isLoading: isDeleteLoading }] = useDeleteRecruiterByIdMutation();
 
   // Calculate Application Stats
   const acceptedApplicationsCount = applications?.applications.filter((app) => app?.status === "ACCEPTED").length || 0;
@@ -155,7 +155,7 @@ const DashboardPage = () => {
               onClose={() => setShowConfirmForm(false)}
               handleConfirmApplication={handleConfirmAction}
               confirmActionMessage="Are you sure you want to update this application?"
-              confirmAction="Update"
+              confirmAction={`${isUpdateLoading || isDeleteLoading ? "Updating..." : "Update"}`}
             />
           </div>
         )}

@@ -60,7 +60,7 @@ const Jobs = () => {
     isLoading: userLoading,
   } = useGetUserByIdQuery(user);
 
-  const [createApplication] = useCreateApplicationMutation();
+  const [createApplication, { isLoading: isApplicationLoading }] = useCreateApplicationMutation();
   const { data, isLoading, error } = useGetJobsQuery({
     page: currentPage,
     limit: 50,
@@ -200,7 +200,7 @@ const Jobs = () => {
             onClose={() => setShowConfirmForm(false)}
             handleConfirmApplication={handleCreateApplication}
             confirmActionMessage="Are you sure you want to apply for this job?"
-            confirmAction="Apply"
+            confirmAction={`${isApplicationLoading ? "Loading..." : "Apply"}`}
           />
         </div>
       )}
