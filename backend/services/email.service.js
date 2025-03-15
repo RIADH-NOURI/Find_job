@@ -7,7 +7,7 @@ dotenv.config();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendResetEmail = async (email, resetToken, userType) => {
-  const resetLink = `http://localhost:3000/reset-password?token=${resetToken}&type=${userType}`;
+  const resetLink = `https://find-job-topaz.vercel.app/reset-password?token=${resetToken}&type=${userType}`;
 
   try {
     await resend.emails.send({
