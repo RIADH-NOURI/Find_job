@@ -56,7 +56,7 @@ const SettingsPage : React.FC<settingsFormProps> = ({
             <div className='flex items-center space-x-4'>
               <div className='relative'>
                 <Image
-                  src={recruiter?.image || '/images/unknown-person.jpg'}
+                  src={recruiter?.image || '/images/unkown-person.jpg'}
                   alt='Profile'
                   width={100}
                  height={60}
