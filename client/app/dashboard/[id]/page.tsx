@@ -43,7 +43,7 @@ const DashboardPage = () => {
 
   // Auth and Params
   const { logout } = useAuth();
-  const recruiterId = useParams().id;
+  const recruiterId= useParams().id as string;
 
   // Data Fetching
   const { data: recruitersApplications, isLoading } = useGetRecruiterByIdQuery(recruiterId);

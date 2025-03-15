@@ -1,14 +1,15 @@
 export interface User {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-    bio: string;
-    image: string;
-    country: string;
-    dateOfBirth: string;
-    status: string;
-    role: string;
+    id?: string;
+    name?: string;
+    email?: string;
+    password?: string;
+    bio?: string;
+    image?: string;
+    country?: string;
+    dateOfBirth?: string;
+    city?: string;
+    status?: string;
+    role?: string;
 }
 
 export interface Recruiter {
@@ -59,15 +60,15 @@ export interface JobApplicationRecruiter {
 
 
 export interface userExperience{
-    id: number;
-    title: string;
-    company: string;
-    location: string;
-    salary: number;
-    endDate: string;
-    startDate: string;
-    experienceLevel: string;
-    description: string
+    id?: number;
+    title?: string;
+    company?: string;
+    location?: string;
+    salary?: number;
+    endDate?: string;
+    startDate?: string;
+    experienceLevel?: string;
+    description?: string
 }
 
 export interface userNotifications {

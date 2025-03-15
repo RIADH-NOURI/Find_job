@@ -18,13 +18,15 @@ import ProfileInfo from "@/components/templates/user/profile";
 import Experiences from "@/components/templates/user/experienceCard";
 import JobsApplications from "@/components/templates/user/jobsApplications";
 import Header from "@/components/organisms/header";
-import { User } from "@/types";
+import { User, userExperience } from "@/types";
 import UserForm from "@/components/organisms/forms/userForm";
 import ExperienceForm from "@/components/organisms/forms/experienceForm";
 import Loader from "@/components/moleculles/loader";
 import dynamic from "next/dynamic";
 import ExpiredSessionCard from "@/components/organisms/expiredSessionCard";
 import axios from "axios";
+
+
 
 
 const ConfirmForm = dynamic(
@@ -49,7 +51,7 @@ const Page = () => {
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [showUploadForm, setShowUploadForm] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
+  const [currentUser, setCurrentUser] = useState<User>({
     name: "",
     bio: "",
     country: "",
@@ -57,7 +59,7 @@ const Page = () => {
     city:"",
     status: "",
   });
-  const [experience, setExperience] = useState({
+  const [experience, setExperience] = useState<userExperience>({
     title: "",
     company: "",
     location: "",
@@ -315,7 +317,11 @@ const Page = () => {
             experiencesLoading={experiencesLoading}
             user={user}
             isCurrentUser={isCurrentUser}
-            handleShowConfirmForm={handleShowConfirmForm}
+            handleShowConfirmForm={()=>
+              {
+                setShowConfirmForm(true);
+              }
+            }
             handleCreateExperience={() => () => {
               setShowExperienceForm(true);
               setExperience(experience);

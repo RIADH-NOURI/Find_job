@@ -9,7 +9,7 @@ type ExperienceCardProps = {
   user: User
   isCurrentUser: boolean
   handleCreateExperience: (user: User) => () => void
-  handleShowConfirmForm: (id: string) => void
+  handleShowConfirmForm: (id: number) => void
 }
 
 const ExperienceCard = ({

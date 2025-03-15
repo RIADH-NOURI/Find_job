@@ -8,7 +8,7 @@ interface jobsData {
   jobs : Jobs[];
 }
 interface Application {
-    id: number;
+    id: string;
     candidateName: string;
     status: string;
     appliedAt: Date;
@@ -27,7 +27,7 @@ export const recruitersApi = createApi(
            getRecruiterById :builder.query({
                query: (id) => `/recruiter/${id}`
            }),
-           getApplicationsByRecruiterId: builder.query<Application[], { id: number; limit: number; page: number }>({
+           getApplicationsByRecruiterId: builder.query<Application[], { id: string; limit: number; page: number }>({
             query: ({ id, limit, page }) => ({
               url: `/recruiter/${id}/applications`,
               params: { limit, page },
