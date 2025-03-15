@@ -168,27 +168,25 @@ const DashboardPage = () => {
         />
 
         {/* Applications List */}
-        {
-          applications?.applications.length > 0 ? (
-            isAppsLoading ? (
-              <Loader />
-            ) : (
-            <ApplicationList
-              applications={applications}
-              isLoading={isLoading}
-              isAppsLoading={isAppsLoading}
-              setSelectedId={setSelectedId}
-              setShowUserInfo={setShowUserInfo}
-              setSelectedStatus={setSelectedStatusApp}
-              setShowConfirmForm={setShowConfirmForm}
-              setSelectedAction={setSelectedAction}
-            />
-          )
-        ) : (
-          <div className="text-center py-20">
-            <h1 className="text-2xl font-bold">No Applications Found</h1>
-          </div>
-        )}
+        {isAppsLoading ? (
+  <Loader />
+) : applications?.applications?.length > 0 ? (
+  <ApplicationList
+    applications={applications}
+    isLoading={isLoading}
+    isAppsLoading={isAppsLoading}
+    setSelectedId={setSelectedId}
+    setShowUserInfo={setShowUserInfo}
+    setSelectedStatus={setSelectedStatusApp}
+    setShowConfirmForm={setShowConfirmForm}
+    setSelectedAction={setSelectedAction}
+  />
+) : (
+  <div className="text-center py-20">
+    <h1 className="text-2xl font-bold">No Applications Found</h1>
+  </div>
+)}
+
         <div className="flex justify-center mt-4">
         <Pagination
             count={applications?.pagination?.totalPages || 1}

@@ -164,19 +164,18 @@ const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
 
       {/* Job Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
-        {
-          data?.jobs.length > 0 ? (
-            isLoading ? (
-              <Loader />
-            ) : (
-            
-            data?.jobs.map((job) => (
-              <JobCard key={job.id} job={job} handleShowConfirmForm={handleShowConfirmForm} />
-            ))
-          )) : (
-            <div className="min-w-full h-full flex items-center justify-center text-2xl text-gray-600 font-bold">No jobs found.</div> // Display a message if no jobs are found</div>
-          )
-        }
+      {isLoading ? (
+  <Loader />
+) : data?.jobs?.length > 0 ? (
+  data.jobs.map((job) => (
+    <JobCard key={job.id} job={job} handleShowConfirmForm={handleShowConfirmForm} />
+  ))
+) : (
+  <div className="min-w-full h-full flex items-center justify-center text-2xl text-gray-600 font-bold">
+    No jobs found.
+  </div>
+)}
+
       </div>
     </Dashboard>
   );

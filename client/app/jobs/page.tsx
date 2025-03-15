@@ -216,21 +216,20 @@ const Jobs = () => {
             jobAppCount={applicationData.count}
             experiencesCount={experienceData.count}
           />
-          {data.jobs === null || data.jobs.length === 0 ? (
-            <NotFoundJob />
-          ) : (
-            isLoading ? (
-              <Loader />
-            ) : (
-              data.jobs.map((job: Job) => (
-                <JobsCard
-                  key={job.id}
-                  Jobsdata={job}
-                  handleShowConfirmForm={handleShowConfirmForm}
-                />
-              ))
-            )
-          )}
+         {isLoading ? (
+  <Loader />
+) : data.jobs === null || data.jobs.length === 0 ? (
+  <NotFoundJob />
+) : (
+  data.jobs.map((job: Job) => (
+    <JobsCard
+      key={job.id}
+      Jobsdata={job}
+      handleShowConfirmForm={handleShowConfirmForm}
+    />
+  ))
+)}
+
           
           <div className="h-full overflow-visible">
             <FilterCard
