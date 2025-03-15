@@ -1,8 +1,5 @@
 # Find Job - Job Application Platform
 
-![Find Job Banner](https://via.placeholder.com/1200x400.png?text=Find+Job+Banner) 
-*(You can replace this with an actual banner image for your project)*
-
 Find Job is a modern web application designed to connect job seekers with recruiters. Users can apply for jobs, while recruiters can post job listings, manage applications, and send notifications. Built with cutting-edge technologies, this platform ensures a seamless experience for both job seekers and recruiters.
 
 ---
