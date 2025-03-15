@@ -170,6 +170,9 @@ const DashboardPage = () => {
         {/* Applications List */}
         {
           applications?.applications.length > 0 ? (
+            isAppsLoading ? (
+              <Loader />
+            ) : (
             <ApplicationList
               applications={applications}
               isLoading={isLoading}
@@ -181,7 +184,7 @@ const DashboardPage = () => {
               setSelectedAction={setSelectedAction}
             />
           )
-        : (
+        ) : (
           <div className="text-center py-20">
             <h1 className="text-2xl font-bold">No Applications Found</h1>
           </div>

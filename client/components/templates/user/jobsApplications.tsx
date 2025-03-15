@@ -26,7 +26,7 @@ const jobsApplications = ({ applications, applicationsLoading }: JobApplicationP
                 <div className="flex justify-between items-start flex-col sm:flex-row">
                   <div className="w-full sm:w-auto">
                     <div className="flex items-center gap-3">
-                      <Avatar src="/broken-image" className="w-8 h-8 sm:w-10 sm:h-10" />
+                      <Avatar src={`${application.job.recruiter.image || '/images/unkown-person.jpg'}`} className="w-8 h-8 sm:w-10 sm:h-10" />
                       <p className="text-sm text-gray-600 truncate max-w-xs">{application.job.recruiter.company}</p>
                     </div>
                     <h3 className="text-lg font-semibold text-gray-800 mt-2 sm:mt-0 truncate max-w-sm">{application.job.title}</h3>

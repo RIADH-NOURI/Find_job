@@ -303,15 +303,24 @@ const Page = () => {
         <div className="grid grid-cols-2  gap-8 mt-8 max-[1124px]:grid-cols-1">
           {/* Job Applications Section */}
           {isCurrentUser ? (
-            <JobsApplications
-              applications={applications}
-              applicationsLoading={applicationsLoading}
-            />
+            applicationsLoading ? (
+              <Loader />
+            )
+            : (
+              <JobsApplications
+                applications={applications}
+                applicationsLoading={applicationsLoading}
+              />
+            )
           ) : (
             ""
           )}
           {/* Experiences Section */}
-          <Experiences
+        {
+          experiencesLoading ? (
+            <Loader />
+          ) : (
+            <Experiences
             key={user?.id}
             experiences={experiences}
             experiencesLoading={experiencesLoading}
@@ -323,7 +332,9 @@ const Page = () => {
               setShowExperienceForm(true);
               setExperience(experience);
             }}
-          />
+            />
+          )
+        }
         </div>
       </main>
     </>

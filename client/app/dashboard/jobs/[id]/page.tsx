@@ -13,6 +13,7 @@ import {  Jobs} from "@/types";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import AddJobButton from "@/components/atoms/addJobButton";
+import Loader from "@/components/moleculles/loader";
 
 const JobForm = dynamic(() => import("@/components/dashboard/forms/jobForm"),
   { ssr: false });
@@ -77,7 +78,7 @@ const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
       await createJob({
         recruiterId: recruiterId,
         ...jobDataSelected,
-        salary: Number(jobDataSelected.salary),
+        salary: parseInt(jobDataSelected.salary),
       });
       alert("Job added successfully!");
       setShowJobForm(false);
@@ -107,13 +108,7 @@ const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
   };
 
   // Conditional Rendering
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  
   
 
   if (isError) {
@@ -171,10 +166,14 @@ const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
         {
           data?.jobs.length > 0 ? (
+            isLoading ? (
+              <Loader />
+            ) : (
+            
             data?.jobs.map((job) => (
               <JobCard key={job.id} job={job} handleShowConfirmForm={handleShowConfirmForm} />
             ))
-          ) : (
+          )) : (
             <div className="min-w-full h-full flex items-center justify-center text-2xl text-gray-600 font-bold">No jobs found.</div> // Display a message if no jobs are found</div>
           )
         }
