@@ -41,7 +41,7 @@ const ApplicationList = ({
               {/* User Info */}
               <div className="flex-1 w-full lg:w-auto">
                 <div className="flex gap-3 items-center">
-                  <Avatar src="/broken-image" />
+                  <Avatar src={app.user.image || "/images/unkown-person.jpg"} />
                   <div>
                     <h3 className="text-lg lg:text-xl font-semibold">{app.user.name}</h3>
                     <p className="text-gray-600 text-sm lg:text-base">{app.user.email}</p>
