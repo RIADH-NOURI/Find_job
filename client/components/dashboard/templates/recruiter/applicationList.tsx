@@ -1,7 +1,6 @@
 import Loader from "@/components/moleculles/loader";
 import Avatar from "@mui/material/Avatar";
 import { CheckCircle, XCircle } from "lucide-react";
-import Image from "next/image";
 
 interface applicationsListProps {
   applications: any[];
@@ -42,16 +41,8 @@ const ApplicationList = ({
               {/* User Info */}
               <div className="flex-1 w-full lg:w-auto">
                 <div className="flex gap-3 items-center">
- <div className='w-10 h-10'>
-            <Image
-              layout='fill'
-              objectFit="cover"
-              objectPosition="center"
-              className="rounded-full"
-              src={`${app.user?.image || '/images/unkown-person.jpg'}`}
-              alt="Logo"
-            />
-          </div>                  <div>
+                  <Avatar src={`${app.user.image || "/images/unkown-person.jpg"}`} />
+                  <div>
                     <h3 className="text-lg lg:text-xl font-semibold">{app.user.name}</h3>
                     <p className="text-gray-600 text-sm lg:text-base">{app.user.email}</p>
                   </div>
