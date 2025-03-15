@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
+    "axios": "^1.8.3",
     "cloudinary": "^2.6.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
