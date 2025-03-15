@@ -63,7 +63,7 @@ const Jobs = () => {
   const [createApplication, { isLoading: isApplicationLoading }] = useCreateApplicationMutation();
   const { data, isLoading, error } = useGetJobsQuery({
     page: currentPage,
-    limit: 5,
+    limit: 50,
     ...appliedFilters,
     company: searchCompany,
   });
@@ -216,22 +216,17 @@ const Jobs = () => {
             jobAppCount={applicationData.count}
             experiencesCount={experienceData.count}
           />
-       {isLoading ? (
+         {isLoading ? (
   <Loader />
-) : !data?.jobs?.length ? (
+) : data.jobs === null || data.jobs.length === 0 ? (
   <NotFoundJob />
 ) : (
-  data.jobs.map((job: Job) => (
-    <JobsCard
-      key={job.id}
-      Jobsdata={job}
-      handleShowConfirmForm={handleShowConfirmForm}
-    />
-  ))
+  <JobsCard
+    Jobsdata={data}
+    handleShowConfirmForm={handleShowConfirmForm}
+  />
 )}
 
-
-          
           <div className="h-full overflow-visible">
             <FilterCard
               countries={countries}
