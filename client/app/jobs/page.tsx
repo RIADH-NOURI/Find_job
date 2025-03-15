@@ -172,13 +172,7 @@ const Jobs = () => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
+  
 
   if (error) {
     return (
@@ -225,11 +219,19 @@ const Jobs = () => {
           {data.jobs === null || data.jobs.length === 0 ? (
             <NotFoundJob />
           ) : (
-            <JobsCard
-              Jobsdata={data}
-              handleShowConfirmForm={handleShowConfirmForm}
-            />
+            isLoading ? (
+              <Loader />
+            ) : (
+              data.jobs.map((job: Job) => (
+                <JobsCard
+                  key={job.id}
+                  Jobsdata={job}
+                  handleShowConfirmForm={handleShowConfirmForm}
+                />
+              ))
+            )
           )}
+          
           <div className="h-full overflow-visible">
             <FilterCard
               countries={countries}
