@@ -1,3 +1,5 @@
+import path from "path";
+import fs from "fs";
 import {
   findAllUsers,
   findUserByName,
@@ -8,6 +10,7 @@ import {
   
 } from "../../models/private/user.model.js";
 import {uploadImageToCloudinary}from "../../services/cloudinary.service.js";
+import {  convertImageToWebP } from "../../utils/imageProcessor.js";
 
 
 
@@ -75,18 +78,26 @@ export const uploadProfileImage = async (req, res) => {
   try {
     const { id } = req.params;
     
+    // Check if image is uploaded
     if (!req.file) {
       return res.status(400).json({ error: 'Image is required' });
     }
 
-    const imageUrl = await uploadImageToCloudinary(req.file.path);
-    console.log(req.file.path);
-    
+    const uploadedImagePath = req.file.path;
+    const outputFilePath = path.join(path.dirname(uploadedImagePath), `${Date.now()}.webp`);
+
+  
+      await convertImageToWebP(uploadedImagePath, outputFilePath);
+
+    const imageUrl = await uploadImageToCloudinary(outputFilePath);
+
+    fs.unlinkSync(outputFilePath);
 
     const userImage = await updateImageByUserId(id, imageUrl);
 
     res.status(200).json(userImage);
   } catch (error) {
+    console.error("Error uploading profile image:", error.message);
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 };

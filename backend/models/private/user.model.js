@@ -58,7 +58,6 @@ export const getUserApplications = (id) =>
     },
   });
   
-  // Helper function to update the user's image URL in the database
  export const updateImageByUserId = async (id, imageUrl) => {
     try {
       const userImage = await prisma.user.update({

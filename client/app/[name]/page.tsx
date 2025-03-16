@@ -112,34 +112,42 @@ const Page = () => {
       }
     };
     const handleUploadImage = async () => {
-        if (selectedFile) {
-          const formData = new FormData();
-          formData.append('image', selectedFile);
-    
-          setUploading(true);
-    
-          try {
-            const response = await axios.post(
-              `https://findjob-4vl9.onrender.com/api/v1/user/${user.id}/upload`,
-              formData,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-              },
-              
-            );
-            console.log(response.data);
-            setSelectedFile(null);
-            setShowUploadForm(false); 
-            alert('Image uploaded successfully!');
-          } catch (err) {
-            console.error('Image upload failed', err);
-          } finally {
-            setUploading(false);
-          }
+      if (selectedFile) {
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp','image/jpg', 'image/gif'];
+        
+        if (!allowedTypes.includes(selectedFile.type)) {
+          alert('Please select a valid image file (JPEG, PNG, WEBP,gif or jpg heic or heif not supported)');
+          return;
         }
-      };
+    
+        const formData = new FormData();
+        formData.append('image', selectedFile);
+    
+        setUploading(true);
+    
+        try {
+          const response = await axios.post(
+            `https://findjob-4vl9.onrender.com/api/v1/user/${user.id}/upload`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          );
+          console.log(response.data);
+          setSelectedFile(null);
+          setShowUploadForm(false); 
+          alert('Image uploaded successfully!');
+        } catch (err) {
+          console.error('Image upload failed', err);
+          alert('Image upload failed. Please try again.');
+        } finally {
+          setUploading(false);
+        }
+      }
+    };
+    
       const handleCancelUpload = () => {
         setSelectedFile(null);
         setShowUploadForm(false); // Hide the upload form on cancel

@@ -24,13 +24,13 @@ const Profile = ({ user, isCurrentUser, handleUpdateUser, handleFileChange,}: Pr
         >
           <Camera className={`w-5 h-5 text-blue-600 ${isCurrentUser ? 'block' : 'hidden'}`} />
           <input
-            id="profile-upload"
-            type="file"
-            accept="image/*"
-            name="image"
-            className="hidden"
-            onChange={handleFileChange}
-          />
+  id="profile-upload"
+  type="file"
+  accept="image/*,image/heic"
+  name="image"
+  className="hidden"
+  onChange={handleFileChange}
+/>
         </label>
         <div className="absolute -bottom-16 left-4 w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-white border border-white shadow-xl">
           <Image
