@@ -19,7 +19,6 @@ setInterval(async()=>{
         console.log('error for get data:',error)
   }
 },10*60*1000);
-app.use(compression());
 
 
 expressConfig(app);
