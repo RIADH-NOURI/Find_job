@@ -3,7 +3,7 @@ export const applyPagination = (query) => {
     const limit = parseInt(query.limit) || 10;
   
     const filters = {};
-    if (query.company) filters.recruiter = { company: query.company };
+    if (query.company) filters.recruiter = { company: decodeURIComponent(query.company) };
     if(query.companyType) filters.recruiter = { companyType: query.companyType };
     if (query.salary) filters.salary = { gte: parseFloat(query.salary) };
     if (query.location) filters.location = query.location;

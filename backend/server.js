@@ -8,7 +8,7 @@ import compression from 'compression';
 dotenv.config();
 
 const app = express();
-const PORT = 5000;
+const PORT = 5001;
 //for testing purposes and no sleep server
 setInterval(async()=>{
   try{
