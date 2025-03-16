@@ -76,7 +76,7 @@ const ApplicationList = ({
               <button
                 className="w-full lg:w-auto mt-4 mr-5 lg:mt-0 p-2 text-primary-color border-2 border-primary-color hover:bg-primary-color hover:text-white rounded-lg transition-colors"
                 onClick={() => {
-                  setSelectedId(app.user.name);
+                  setSelectedId(app.user.id);
                   setShowUserInfo(true);
                 }}
               >
