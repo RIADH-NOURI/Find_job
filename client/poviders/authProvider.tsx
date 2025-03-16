@@ -14,6 +14,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   error: boolean;
   user: string | null;
+  setUser: (user: string | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -25,6 +26,7 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   error: false,
   user: null,
+  setUser: () => {},
 });
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -130,7 +132,7 @@ useEffect(() => {
   if (loading) return <div className="flex items-center justify-center h-screen"><Loader /></div>;
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isAuthenticated, id, role, error, user }}>
+    <AuthContext.Provider value={{ token, login, logout, isAuthenticated, id, role, error, user,setUser }}>
       {children}
     </AuthContext.Provider>
   );

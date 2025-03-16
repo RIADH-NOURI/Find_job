@@ -76,7 +76,7 @@ const Page = () => {
   const userName = params?.name as string;
   
 
-  const { id: loggedInUserId, isAuthenticated, logout } = useAuth();
+  const { id: loggedInUserId, isAuthenticated, logout,setUser } = useAuth();
   const [sessionExpired, setSessionExpired] = useState(false);
   const checkTokenExpiration = () => {
     if (typeof window !== "undefined") {
@@ -166,7 +166,7 @@ const Page = () => {
       
           if (userData.name) {
             router.push(`/${userData.name}`);
-            localStorage.setItem('username', userData.name);
+            setUser(userData.name);
           }
         } catch (error) {
           console.error('Error updating user:', error);
