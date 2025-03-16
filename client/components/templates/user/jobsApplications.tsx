@@ -16,11 +16,10 @@ const JobsApplications = ({ applications, applicationsLoading }: JobApplicationP
       <div className="col-span-2 bg-white rounded-lg shadow-lg p-6 max-h-full sm:col-span-1">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">Job Applications</h3>
 
-        {!applicationsLoading ? (
-         <div className="flex justify-center items-center py-10 bg-red-500 border border-black min-h-[100px]">
-         <Loader />
-       </div>
-       
+        {applicationsLoading ? (
+          <div className="flex justify-center items-center py-10">
+            <Loader  />
+          </div>
         ) : applications?.length > 0 ? (
           <div className="space-y-4">
             {applications.map((application) => (
