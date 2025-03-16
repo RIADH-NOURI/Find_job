@@ -166,7 +166,7 @@ const Page = () => {
       
           if (userData.name) {
             router.push(`/${userData.name}`);
-            localStorage.setItem('user', userData.name);
+            localStorage.setItem('username', userData.name);
           }
         } catch (error) {
           console.error('Error updating user:', error);
