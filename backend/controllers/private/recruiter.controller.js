@@ -1,10 +1,7 @@
 import * as RecruiterModel from "../../models/private/recruiter.model";
 import * as NotificationModel from "../../models/private/notification.model";
 import { uploadImageToCloudinary } from "../../services/cloudinary.service";
-import path from "path";
 import fs from "fs";
-import { convertImageToWebP } from "../../utils/imageProcessor";
-
 
 // Get all recruiters
 export const getAllRecruiters = async (req, res) => {
@@ -178,30 +175,21 @@ export const searchRecruiters = async (req, res) => {
 
 export const uploadRecruiterImage = async (req, res) => {
   try {
-      const { id } = req.params;
-      
-      // Check if image is uploaded
-      if (!req.file) {
-        return res.status(400).json({ error: 'Image is required' });
-      }
-  
-      const uploadedImagePath = req.file.path;
-      const outputFilePath = path.join(path.dirname(uploadedImagePath), `${Date.now()}.webp`);
-  
+    const { id } = req.params;
     
-        await convertImageToWebP(uploadedImagePath, outputFilePath);
-  
-      const imageUrl = await uploadImageToCloudinary(outputFilePath);
-  
-      fs.unlinkSync(outputFilePath);
-  
-      const userImage = await RecruiterModel.updateImageByRecruiterId(id, imageUrl);
-  
-      res.status(200).json(userImage);
-    } catch (error) {
-      console.error("Error uploading profile image:", error.message);
-      res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    if (!req.file) {
+      return res.status(400).json({ error: 'Image is required' });
     }
-  };
+
+    const imageUrl = await uploadImageToCloudinary(req.file.path);
+
+    const userImage = await RecruiterModel.updateImageByRecruiterId(id, imageUrl);
+    fs.unlickSync(req.file.path);
+
+    res.status(200).json(userImage);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
+};
 
 
