@@ -108,7 +108,7 @@ const DashboardPage = () => {
   // Conditional Rendering
   if (isLoading) {
     return (
-      <div className="text-center py-20">
+      <div className="w-full h-screen flex items-center justify-center">
         <Loader />
       </div>
     );
@@ -168,12 +168,9 @@ const DashboardPage = () => {
         />
 
         {/* Applications List */}
-        {isAppsLoading ? (
-  <Loader />
-) : applications?.applications?.length > 0 ? (
+       { applications?.applications?.length > 0 ? (
   <ApplicationList
     applications={applications}
-    isLoading={isLoading}
     isAppsLoading={isAppsLoading}
     setSelectedId={setSelectedId}
     setShowUserInfo={setShowUserInfo}

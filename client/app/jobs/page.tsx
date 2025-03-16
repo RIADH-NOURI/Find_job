@@ -217,14 +217,18 @@ const Jobs = () => {
             experiencesCount={experienceData.count}
           />
          {isLoading ? (
-  <Loader />
+           <div className="md:col-span-2 w-full flex justify-center items-center">  <Loader />
+</div>
+         
 ) : data.jobs === null || data.jobs.length === 0 ? (
   <NotFoundJob />
 ) : (
   <JobsCard
-    Jobsdata={data}
-    handleShowConfirmForm={handleShowConfirmForm}
-  />
+          Jobsdata={data}
+          handleShowConfirmForm={handleShowConfirmForm}
+         
+        />
+ 
 )}
 
           <div className="h-full overflow-visible">

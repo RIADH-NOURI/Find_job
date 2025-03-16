@@ -27,7 +27,7 @@ const ApplicationList = ({
     <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
       <h2 className="text-xl md:text-2xl font-semibold mb-4 sm:mb-6">Applications</h2>
 
-      {isLoading || isAppsLoading ? (
+      { isAppsLoading ? (
         <div className="w-full h-full flex items-center justify-center">
           <Loader />
         </div>

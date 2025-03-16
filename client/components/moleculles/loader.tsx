@@ -31,14 +31,12 @@ const StyledWrapper = styled.div`
     height: 1em;
   }
 
-  .spinner.center {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-  }
+ .spinner.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
   .spinner .spinner-blade {
     position: absolute;

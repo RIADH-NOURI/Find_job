@@ -102,7 +102,7 @@ const Header = () => {
           </div>
         </Link>
         {unreadCount > 0 && (
-          <span className='absolute -top-1 right-0 sm:right-10 bg-red-500 rounded-full text-xs w-5 h-5 flex justify-center items-center text-white'>
+          <span className='absolute -top-0.5 right-8 sm:right-10 bg-red-500 rounded-full text-xs w-5 h-5 flex justify-center items-center text-white'>
             {unreadCount}
           </span>
         )}

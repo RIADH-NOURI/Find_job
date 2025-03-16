@@ -108,7 +108,7 @@ const Page = () => {
 
 
 
-  if (isLoading) return <div> <Loader/></div>
+  if (isLoading) return <div className="w-full h-screen flex items-center justify-center"> <Loader/></div>
 
   return (
     <Dashboard userData={recruiterData}>

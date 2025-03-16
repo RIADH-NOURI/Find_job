@@ -5,30 +5,31 @@ import {
   useGetJobsByRecruiterIdQuery,
   useCreateJobForRecruiterMutation,
   useGetRecruiterByIdQuery,
-  useDeleteJobByIdMutation
+  useDeleteJobByIdMutation,
 } from "@/redux/apis/private/recruiterApi";
 import JobCard from "@/components/dashboard/templates/jobs/jobCardst";
 import { useParams } from "next/navigation";
-import {  Jobs} from "@/types";
+import { Jobs } from "@/types";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import AddJobButton from "@/components/atoms/addJobButton";
 import Loader from "@/components/moleculles/loader";
 
-const JobForm = dynamic(() => import("@/components/dashboard/forms/jobForm"),
-  { ssr: false });
+const JobForm = dynamic(() => import("@/components/dashboard/forms/jobForm"), {
+  ssr: false,
+});
 
-  const ConfirmForm = dynamic(() => import("@/components/moleculles/confirmForm"),
-  { ssr: false });
-
-
+const ConfirmForm = dynamic(
+  () => import("@/components/moleculles/confirmForm"),
+  { ssr: false }
+);
 
 const Page = () => {
-   // Router and Params
-   const recruiterId = useParams().id;
+  // Router and Params
+  const recruiterId = useParams().id;
   // State Management
-  const [jobData, setJobData] = useState<Jobs[],any>({
-    recruiterId: recruiterId ,
+  const [jobData, setJobData] = useState<Jobs[], any>({
+    recruiterId: recruiterId,
     title: "",
     jobType: "",
     location: "",
@@ -43,10 +44,9 @@ const Page = () => {
   const [countries, setCountries] = useState<string[]>([]);
   const [jobs, setJobs] = useState<string[]>([]);
 
- 
-
   // Data Fetching
-const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
+  const { data, isLoading, isError } =
+    useGetJobsByRecruiterIdQuery(recruiterId);
   const { data: recruiterData } = useGetRecruiterByIdQuery(recruiterId);
   const [createJob] = useCreateJobForRecruiterMutation();
   const [deleteJob] = useDeleteJobByIdMutation();
@@ -108,8 +108,6 @@ const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
   };
 
   // Conditional Rendering
-  
-  
 
   if (isError) {
     return (
@@ -161,21 +159,25 @@ const { data, isLoading, isError } = useGetJobsByRecruiterIdQuery(recruiterId);
         </div>
       )}
 
-
       {/* Job Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
-      {isLoading ? (
-  <Loader />
-) : data?.jobs?.length > 0 ? (
-  data.jobs.map((job) => (
-    <JobCard key={job.id} job={job} handleShowConfirmForm={handleShowConfirmForm} />
-  ))
-) : (
-  <div className="min-w-full h-full flex items-center justify-center text-2xl text-gray-600 font-bold">
-    No jobs found.
-  </div>
-)}
-
+        {isLoading ? (
+          <div className="flex items-center justify-center h-screen">
+            <Loader />
+          </div>
+        ) : data?.jobs?.length > 0 ? (
+          data.jobs.map((job) => (
+            <JobCard
+              key={job.id}
+              job={job}
+              handleShowConfirmForm={handleShowConfirmForm}
+            />
+          ))
+        ) : (
+          <div className="min-w-full h-full flex items-center justify-center text-2xl text-gray-600 font-bold">
+            No jobs found.
+          </div>
+        )}
       </div>
     </Dashboard>
   );

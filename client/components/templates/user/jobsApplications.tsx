@@ -1,5 +1,6 @@
+import Loader from '@/components/moleculles/loader'
 import { JobApplicationUser } from '@/types'
-import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar'
 import { Calendar } from 'lucide-react'
 import React from 'react'
 
@@ -8,14 +9,18 @@ type JobApplicationProps = {
     applicationsLoading: boolean,
 }
 
-const jobsApplications = ({ applications, applicationsLoading }: JobApplicationProps) => {
+const JobsApplications = ({ applications, applicationsLoading }: JobApplicationProps) => {
   return (
     <>
       {/* Job Applications Section */}
       <div className="col-span-2 bg-white rounded-lg shadow-lg p-6 max-h-full sm:col-span-1">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">Job Applications</h3>
-        {applicationsLoading ? (
-          <div className="text-center py-10 text-gray-500">Loading job applications...</div>
+
+        {!applicationsLoading ? (
+         <div className="flex justify-center items-center py-10 bg-red-500 border border-black min-h-[100px]">
+         <Loader />
+       </div>
+       
         ) : applications?.length > 0 ? (
           <div className="space-y-4">
             {applications.map((application) => (
@@ -55,4 +60,4 @@ const jobsApplications = ({ applications, applicationsLoading }: JobApplicationP
   )
 }
 
-export default jobsApplications;
+export default JobsApplications;

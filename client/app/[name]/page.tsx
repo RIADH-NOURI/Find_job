@@ -303,18 +303,16 @@ const Page = () => {
         <div className="grid grid-cols-2  gap-8 mt-8 max-[1124px]:grid-cols-1">
           {/* Job Applications Section */}
           {isCurrentUser ? (
-            applicationsLoading ? (
-              <Loader />
+              <JobsApplications
+              applications={applications}
+              applicationsLoading={applicationsLoading}
+            />
             )
             : (
-              <JobsApplications
-                applications={applications}
-                applicationsLoading={applicationsLoading}
-              />
+             ""
             )
-          ) : (
-            ""
-          )}
+         
+          }
           {/* Experiences Section */}
         {
           experiencesLoading ? (
