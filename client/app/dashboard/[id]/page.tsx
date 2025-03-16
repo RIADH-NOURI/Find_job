@@ -38,7 +38,7 @@ const DashboardPage = () => {
   const [selecteId, setSelectedId] = useState<number | null>(null);
   const [selectedAction, setSelectedAction] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const limit = 2
+    const limit = 10
   
 
   // Auth and Params

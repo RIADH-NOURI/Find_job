@@ -63,7 +63,7 @@ const Jobs = () => {
   const [createApplication, { isLoading: isApplicationLoading }] = useCreateApplicationMutation();
   const { data, isLoading, error } = useGetJobsQuery({
     page: currentPage,
-    limit: 50,
+    limit: 5,
     ...appliedFilters,
     company: searchCompany,
   });

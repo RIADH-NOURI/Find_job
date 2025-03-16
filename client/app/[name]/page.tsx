@@ -8,7 +8,7 @@ import {
   useGetApplicationByUserIdQuery,
   useUpdateUserMutation,
 } from "@/redux/apis/private/userApi";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   useCreateExperiencesMutation,
   useGetExperiencesByUserQuery,
@@ -41,6 +41,8 @@ const UploadImageForm =  dynamic(
 
 
 const Page = () => {
+  const router = useRouter();
+
   {
     /*state management*/
   }
@@ -154,17 +156,22 @@ const Page = () => {
       };
     
 
-  const handleUpdate = async (userData: User) => {
-    try {
-      await updateUser({
-        ...userData,
-      });
-      console.log("User", userData);
-      alert("User updated successfully!");
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
-  };
+      const handleUpdate = async (userData: User) => {
+        try {
+          await updateUser({
+            ...userData,
+          });
+          console.log('User', userData);
+          alert('User updated successfully!');
+      
+          if (userData.name) {
+            router.push(`/${userData.name}`);
+            localStorage.setItem('user', userData.name);
+          }
+        } catch (error) {
+          console.error('Error updating user:', error);
+        }
+      };
   const handleAddExperience = async () => {
     try {
       const newExperience = {
