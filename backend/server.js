@@ -4,6 +4,7 @@ import routesApp from "./app.route";
 import expressConfig from "./config/express.config";
 import helemtSecretConfig from "./config/helmet.secrute.config"
 import axios from "axios";
+import compression from 'compression';
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,8 @@ setInterval(async()=>{
         console.log('error for get data:',error)
   }
 },10*60*1000);
+app.use(compression());
+
 
 expressConfig(app);
 
