@@ -23,7 +23,7 @@ const NotificationsCard = () => {
     isLoading,
     error,
   } = useGetNotificationsByUserIdQuery(id);
-  const [deleteNotification] = useDeleteNotificationMutation();
+  const [deleteNotification, { isLoading: deleteLoading }] = useDeleteNotificationMutation();
 
   // Event Handlers
   const handleMenuToggle = (id: number) => {
@@ -54,7 +54,7 @@ const NotificationsCard = () => {
   return (
     <>
       <Header />
-       <NotificationCard userNotifications={userNotifications} handleMenuToggle={handleMenuToggle} handleDeleteNotification={handleDeleteNotification} getMessageStyle={getMessageStyle} menuOpen={menuOpen} />
+       <NotificationCard userNotifications={userNotifications} handleMenuToggle={handleMenuToggle} handleDeleteNotification={handleDeleteNotification} getMessageStyle={getMessageStyle} menuOpen={menuOpen} deleteLoading={deleteLoading} />
     </>
   );
 };
