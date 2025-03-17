@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Briefcase, MapPin } from "lucide-react";
+import { Briefcase, MapPin, Star } from "lucide-react"; // Added Star icon import
 import Image from "next/image";
 import Loader from "../../moleculles/loader";
 import { User, userExperience } from "@/types";
@@ -13,7 +13,12 @@ type UserProfileFormProps = {
     isExperiencesLoading: boolean;
 };
 
-const UserProfileForm : React.FC<UserProfileFormProps> = ({ user, experiences, isUserLoading, isExperiencesLoading })  => {
+const UserProfileForm: React.FC<UserProfileFormProps> = ({
+    user,
+    experiences,
+    isUserLoading,
+    isExperiencesLoading,
+}) => {
     // Combined loading state
     const isLoading = isUserLoading || isExperiencesLoading;
 
@@ -34,7 +39,7 @@ const UserProfileForm : React.FC<UserProfileFormProps> = ({ user, experiences, i
                     <div className="relative min-w-full h-[250px] bg-gradient-to-br from-blue-600 to-purple-500 rounded-t-xl p-10">
                         <div className="absolute -bottom-16 left-6 w-32 h-32 rounded-full bg-white border-4 border-white shadow-lg">
                             <Image
-                                src={user?.image || "/images/unkown-person-img.jpg"}
+                                src={user?.image || "/images/unkown-person.jpg"}
                                 alt="User Avatar"
                                 layout="fill"
                                 objectFit="cover"
@@ -49,10 +54,14 @@ const UserProfileForm : React.FC<UserProfileFormProps> = ({ user, experiences, i
                         <div className="flex justify-between items-start">
                             <div>
                                 <h2 className="text-3xl font-bold text-gray-900">{user?.name}</h2>
-                                <p className="text-md text-gray-700 mt-1 leading-relaxed">{user?.bio || "No bio available"}</p>
+                                <p className="text-md text-gray-700 mt-1 leading-relaxed">
+                                    {user?.bio || "No bio available"}
+                                </p>
                                 <div className="flex items-center gap-2 mt-2">
                                     <MapPin className="text-gray-600" size={16} />
-                                    <p className="text-gray-700 font-medium">{user?.country || "Unknown location"}</p>
+                                    <p className="text-gray-700 font-medium">
+                                        {user?.country || "Unknown location"},{user?.city}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -66,19 +75,40 @@ const UserProfileForm : React.FC<UserProfileFormProps> = ({ user, experiences, i
                                 {experiences.map((exp) => (
                                     <div
                                         key={exp.id}
-                                        className="p-4 border border-gray-300 rounded-lg hover:shadow-md transition-shadow duration-300"
+                                        className="p-6 border border-gray-300 rounded-lg hover:shadow-md transition-shadow duration-300 bg-white"
                                     >
+                                        {/* Experience Title and Icon */}
                                         <div className="flex items-center gap-3">
                                             <Briefcase className="text-blue-600" size={20} />
                                             <h2 className="text-lg font-semibold text-gray-800">{exp.title}</h2>
                                         </div>
-                                        <p className="text-sm text-gray-700 mt-1">
+
+                                        {/* Company and Duration */}
+                                        <p className="text-sm text-gray-700 mt-2">
                                             <strong>Company:</strong> {exp.company}
                                         </p>
                                         <p className="text-sm text-gray-700 mt-1">
                                             <strong>Duration:</strong> {exp.startDate} - {exp.endDate || "Present"}
                                         </p>
-                                        <p className="text-sm text-gray-700 mt-2 leading-relaxed">{exp.description}</p>
+
+                                        {/* Location */}
+                                        <p className="text-sm text-gray-700 mt-2">
+                                            <strong>Location:</strong> {exp.location}
+                                        </p>
+
+                                        {/* Experience Level with Icon */}
+                                        <div className="flex items-center gap-2 mt-2 -ml-2">
+                                            <Star className="text-yellow-500" size={16} />{" "}
+                                            {/* Use a star icon for experience level */}
+                                            <p className="text-sm text-gray-700">
+                                                <strong>Experience Level:</strong> {exp.experienceLevel}
+                                            </p>
+                                        </div>
+
+                                        {/* Description */}
+                                        <p className="text-sm text-gray-700 mt-3 leading-relaxed">
+                                            {exp.description}
+                                        </p>
                                     </div>
                                 ))}
                             </div>

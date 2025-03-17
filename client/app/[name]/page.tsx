@@ -4,9 +4,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import {
-  useGetUserByIdQuery,
   useGetApplicationByUserIdQuery,
   useUpdateUserMutation,
+  useGetUserByNameQuery,
 } from "@/redux/apis/private/userApi";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -95,8 +95,8 @@ const Page = () => {
   {
     /* Fetch user data */
   }
-  const { data: user, error, isLoading } = useGetUserByIdQuery(userName);
-  const { data: applications, isLoading: applicationsLoading } =
+  const { data: user, error, isLoading } = useGetUserByNameQuery(userName);
+  const { data: applications, isLoading: applicationsLoading ,refetch} =
     useGetApplicationByUserIdQuery(loggedInUserId);
   const { data: experiences, isLoading: experiencesLoading } =
     useGetExperiencesByUserQuery(loggedInUserId);
@@ -105,7 +105,9 @@ const Page = () => {
   const [deleteExperiences] = useDeleteExperiencesMutation();
 
 
-
+const reloadJobApplications = ()=>{
+  refetch();
+}
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) {
@@ -322,6 +324,7 @@ const Page = () => {
               <JobsApplications
               applications={applications}
               applicationsLoading={applicationsLoading}
+              reloadJonApplications={reloadJobApplications}
             />
             )
             : (

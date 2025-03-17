@@ -1,21 +1,30 @@
 import Loader from '@/components/moleculles/loader'
 import { JobApplicationUser } from '@/types'
 import Avatar from '@mui/material/Avatar'
-import { Calendar } from 'lucide-react'
+import { Calendar, RotateCcw } from 'lucide-react'
 import React from 'react'
 
 type JobApplicationProps = {
     applications: JobApplicationUser[],
     applicationsLoading: boolean,
+    reloadJonApplications : ()=>void,
 }
 
-const JobsApplications = ({ applications, applicationsLoading }: JobApplicationProps) => {
+const JobsApplications = ({ applications, applicationsLoading, reloadJonApplications }: JobApplicationProps) => {
   return (
     <>
       {/* Job Applications Section */}
       <div className="col-span-2 bg-white rounded-lg shadow-lg p-6 max-h-full sm:col-span-1">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Job Applications</h3>
-
+        
+      <div className="w-full h-auto flex justify-between items-center">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4 sm:mb-6">Job Applications</h2>
+        <button
+    onClick={reloadJonApplications}
+    className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+  >
+    <RotateCcw className="w-6 h-6 transition-transform duration-300 hover:rotate-180" />
+  </button>
+      </div>
         {applicationsLoading ? (
           <div className="flex justify-center items-center py-10">
             <Loader  />

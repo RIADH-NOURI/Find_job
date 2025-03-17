@@ -24,11 +24,13 @@ const UserProfileForm = dynamic(
     ssr: false,
   }
 );
-const ConfirmForm = dynamic(() => import("@/components/moleculles/confirmForm"),
-{
-  loading: () => <Loader />,
-  ssr: false,
-});
+const ConfirmForm = dynamic(
+  () => import("@/components/moleculles/confirmForm"),
+  {
+    loading: () => <Loader />,
+    ssr: false,
+  }
+);
 
 const DashboardPage = () => {
   // State Management
@@ -37,40 +39,69 @@ const DashboardPage = () => {
   const [showConfirmForm, setShowConfirmForm] = useState(false);
   const [selecteId, setSelectedId] = useState<number | null>(null);
   const [selectedAction, setSelectedAction] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const limit = 10
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
 
   // Auth and Params
   const { logout } = useAuth();
-  const recruiterId= useParams().id as string;
+  const recruiterId = useParams().id as string;
 
   // Data Fetching
-  const { data: recruitersApplications, isLoading } = useGetRecruiterByIdQuery(recruiterId);
-  const { data: applications, isLoading: isAppsLoading } = useGetApplicationsByRecruiterIdQuery({
-    id: recruiterId,
-    page: currentPage,
-    limit: limit,
-  });
-  
-  const { isLoading: isUserLoading, data: user } = useGetUserByIdQuery(selecteId);
-  const { isLoading: isExperiencesLoading, data: experiences } = useGetExperiencesByUserQuery(selecteId);
-  const [updateStatusApplication, { isLoading: isUpdateLoading }] = useUpdateStatusApplicationMutation();
-  const [deleteRecruiter, { isLoading: isDeleteLoading }] = useDeleteRecruiterByIdMutation();
+  const { data: recruitersApplications, isLoading } =
+    useGetRecruiterByIdQuery(recruiterId);
+  const { data: applications, isLoading: isAppsLoading, refetch } =
+    useGetApplicationsByRecruiterIdQuery({
+      id: recruiterId,
+      page: currentPage,
+      limit: limit,
+    });
+
+  const { isLoading: isUserLoading, data: user } =
+    useGetUserByIdQuery(selecteId);
+  const { isLoading: isExperiencesLoading, data: experiences } =
+    useGetExperiencesByUserQuery(selecteId);
+  const [updateStatusApplication, { isLoading: isUpdateLoading }] =
+    useUpdateStatusApplicationMutation();
+  const [deleteRecruiter, { isLoading: isDeleteLoading }] =
+    useDeleteRecruiterByIdMutation();
 
   // Calculate Application Stats
-  const acceptedApplicationsCount = applications?.applications.filter((app) => app?.status === "ACCEPTED").length || 0;
-  const pendingApplicationsCount = applications?.applications.filter((app) => app?.status === "PENDING").length || 0;
-  const rejectedApplicationsCount = applications?.applications.filter((app) => app?.status === "REJECTED").length || 0;
+  const acceptedApplicationsCount =
+    applications?.applications.filter((app) => app?.status === "ACCEPTED")
+      .length || 0;
+  const pendingApplicationsCount =
+    applications?.applications.filter((app) => app?.status === "PENDING")
+      .length || 0;
+  const rejectedApplicationsCount =
+    applications?.applications.filter((app) => app?.status === "REJECTED")
+      .length || 0;
 
   const stats = [
-    { title: "Accepted", count: acceptedApplicationsCount, color: "bg-green-500", icon: "✅" },
-    { title: "Pending", count: pendingApplicationsCount, color: "bg-yellow-500", icon: "⏳" },
-    { title: "Rejected", count: rejectedApplicationsCount, color: "bg-red-500", icon: "❌" },
+    {
+      title: "Accepted",
+      count: acceptedApplicationsCount,
+      color: "bg-green-500",
+      icon: "✅",
+    },
+    {
+      title: "Pending",
+      count: pendingApplicationsCount,
+      color: "bg-yellow-500",
+      icon: "⏳",
+    },
+    {
+      title: "Rejected",
+      count: rejectedApplicationsCount,
+      color: "bg-red-500",
+      icon: "❌",
+    },
   ];
 
   // Event Handlers
-  const handleUpdateStatus = async () => {
+
+  const reloadApplications = () => {
+    refetch(); 
+  };  const handleUpdateStatus = async () => {
     if (!selecteId || !selectedStatusApp) return;
 
     try {
@@ -78,6 +109,7 @@ const DashboardPage = () => {
         applicationId: selecteId,
         status: selectedStatusApp === "accept" ? "ACCEPTED" : "REJECTED",
       });
+      alert("Application status updated successfully!");
       setSelectedStatusApp("");
       setShowConfirmForm(false);
     } catch (error) {
@@ -101,9 +133,12 @@ const DashboardPage = () => {
     }
   };
 
-   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-      setCurrentPage(page);
-    };
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
+  };
 
   // Conditional Rendering
   if (isLoading) {
@@ -124,7 +159,6 @@ const DashboardPage = () => {
       </div>
     );
   }
-
 
   // Main Render
   return (
@@ -155,7 +189,9 @@ const DashboardPage = () => {
               onClose={() => setShowConfirmForm(false)}
               handleConfirmApplication={handleConfirmAction}
               confirmActionMessage="Are you sure you want to update this application?"
-              confirmAction={`${isUpdateLoading || isDeleteLoading ? "Updating..." : "Update"}`}
+              confirmAction={`${
+                isUpdateLoading || isDeleteLoading ? "Updating..." : "Update"
+              }`}
             />
           </div>
         )}
@@ -168,24 +204,29 @@ const DashboardPage = () => {
         />
 
         {/* Applications List */}
-       { applications?.applications?.length > 0 ? (
-  <ApplicationList
-    applications={applications}
-    isAppsLoading={isAppsLoading}
-    setSelectedId={setSelectedId}
-    setShowUserInfo={setShowUserInfo}
-    setSelectedStatus={setSelectedStatusApp}
-    setShowConfirmForm={setShowConfirmForm}
-    setSelectedAction={setSelectedAction}
-  />
-) : (
-  <div className="text-center py-20">
-    <h1 className="text-2xl font-bold">No Applications Found</h1>
-  </div>
-)}
+        {isAppsLoading ? (
+          <div className="w-full max-h-full flex items-center justify-center">
+            <Loader />
+          </div>
+        ) : applications?.applications?.length > 0 ? (
+          <ApplicationList
+            applications={applications}
+            isAppsLoading={isAppsLoading}
+            setSelectedId={setSelectedId}
+            setShowUserInfo={setShowUserInfo}
+            setSelectedStatus={setSelectedStatusApp}
+            setShowConfirmForm={setShowConfirmForm}
+            setSelectedAction={setSelectedAction}
+            reloadApplications={reloadApplications}
+          />
+        ) : (
+          <div className="text-center py-20">
+            <h1 className="text-2xl font-bold">No Applications Found</h1>
+          </div>
+        )}
 
         <div className="flex justify-center mt-4">
-        <Pagination
+          <Pagination
             count={applications?.pagination?.totalPages || 1}
             page={currentPage}
             onChange={handlePageChange}
@@ -193,14 +234,9 @@ const DashboardPage = () => {
             size="large"
           />
         </div>
-        
- 
-       
       </Dashboard>
     </>
   );
 };
 
 export default DashboardPage;
-
-

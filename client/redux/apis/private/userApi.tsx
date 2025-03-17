@@ -10,8 +10,14 @@ export const usersApi = createApi({
       query: () => "/users",
     }),
     getUserById: builder.query({
+      query: (id) => ({
+        url: `/user/id/${id}`,
+      }),
+      providesTags: ["User"],
+    }),
+    getUserByName: builder.query({
       query: (name) => ({
-        url: `/user/${name}`,
+        url: `/user/name/${name}`,
       }),
       providesTags: ["User"],
     }),
@@ -47,6 +53,7 @@ export const usersApi = createApi({
 export const {
   useGetAllUsersQuery,
   useGetUserByIdQuery,
+  useGetUserByNameQuery,
   useCreateUserMutation,
   useGetApplicationByUserIdQuery,
   useUpdateUserMutation,

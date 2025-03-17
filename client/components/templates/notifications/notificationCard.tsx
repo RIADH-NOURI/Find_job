@@ -8,6 +8,7 @@ type NotificationCardProps = {
   handleDeleteNotification: (notificationId: string) => void;
   menuOpen: number | null;
   getMessageStyle: (message: string) => string;
+  deleteLoading: boolean;
 };
 
 
@@ -17,6 +18,7 @@ const NotificationCard = ({
   handleDeleteNotification,
   menuOpen,
   getMessageStyle,
+  deleteLoading,
 }: NotificationCardProps) => {
   return (
     <>
@@ -66,7 +68,7 @@ const NotificationCard = ({
                         onClick={() => handleDeleteNotification(notification.id)}
                         className="text-red-500 hover:text-red-700"
                       >
-                        Delete Notification
+                       {`${deleteLoading ? "Deleting..." : "Delete"}`}
                       </button>
                     </div>
                   )}

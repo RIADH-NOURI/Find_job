@@ -202,6 +202,7 @@ const Jobs = () => {
       <main className="min-h-screen py-[5%] bg-gray-50">
         <SearchBar
           searchRef={searchRef}
+          companyLoading={companyLoading}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           showDropdown={showDropdown}

@@ -121,11 +121,12 @@ useEffect(() => {
 
   // Logout function
   const logout = () => {
-    ["token", "user", "role", "expiresAt"].forEach((item) => localStorage.removeItem(item));
+    ["token", "user", "role", "expiresAt", "username"].forEach((item) => localStorage.removeItem(item));
     setToken(null);
     setId(null);
     setRole(null);
     setIsAuthenticated(false);
+    setUser(null);
     router.push("/");
   };
   if (loading) return <div className="flex items-center justify-center h-screen"><Loader /></div>;

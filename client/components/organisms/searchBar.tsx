@@ -1,6 +1,8 @@
 
+import { dir } from 'console';
 import { Search } from 'lucide-react'
 import React from 'react'
+import Loader from '../moleculles/loader';
 
 interface CompanyData {
     id: number;
@@ -15,6 +17,7 @@ interface Props {
     handleSelectCompany: (company: string) => void,
     companyData: CompanyData[],
     handleSearchClick: () => void;
+    companyLoading: boolean;
 }
 
 const searchBar:React.FC<Props>=(
@@ -25,7 +28,8 @@ const searchBar:React.FC<Props>=(
         showDropdown,
         handleSelectCompany,
         companyData,
-        handleSearchClick
+        handleSearchClick,
+        companyLoading
   
     }
 ) => {
@@ -50,7 +54,14 @@ const searchBar:React.FC<Props>=(
             {/* Search Dropdown */}
             {showDropdown && (
               <div className="absolute w-full bg-white border border-gray-300 shadow-lg rounded-lg mt-1 z-10 h-[300px] overflow-y-scroll">
-                {companyData?.length > 0 ? (
+                {
+                  companyLoading ? (
+                    <div className='w-full h-full flex items-center justify-center'>
+                      <Loader />
+                    </div>
+                  )
+                  :
+                companyData?.length > 0 ? (
                   companyData.map((company) => (
                     <div
                       key={company.id}

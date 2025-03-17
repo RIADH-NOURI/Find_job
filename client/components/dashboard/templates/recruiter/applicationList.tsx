@@ -1,17 +1,19 @@
 import Loader from "@/components/moleculles/loader";
 import Avatar from "@mui/material/Avatar";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle, RotateCcw } from "lucide-react";
 
 interface applicationsListProps {
   applications: any[];
   isLoading: boolean;
   isAppsLoading: boolean;
-   setSelectedId: (id: number) => void;
+  setSelectedId: (id: number) => void;
   setShowUserInfo: (show: boolean) => void;
   setSelectedStatus: (status: string) => void;
   setShowConfirmForm: (show: boolean) => void;
   setSelectedAction: (action: string) => void;
+  reloadApplications: () => void; // Function to reload applications
 }
+
 const ApplicationList = ({
   applications = [],
   isLoading,
@@ -21,13 +23,21 @@ const ApplicationList = ({
   setSelectedStatus,
   setShowConfirmForm,
   setSelectedAction,
+  reloadApplications, // Function prop
 }) => {
-
   return (
     <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4 sm:mb-6">Applications</h2>
+      <div className="w-full h-auto flex justify-between items-center">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4 sm:mb-6">Applications</h2>
+        <button
+    onClick={reloadApplications}
+    className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+  >
+    <RotateCcw className="w-6 h-6 transition-transform duration-300 hover:rotate-180" />
+  </button>
+      </div>
 
-      { isAppsLoading ? (
+      {isAppsLoading ? (
         <div className="w-full h-full flex items-center justify-center">
           <Loader />
         </div>
@@ -52,8 +62,7 @@ const ApplicationList = ({
               {/* Job Title */}
               <div className="flex-1 w-full lg:w-auto mt-4 lg:mt-0">
                 <p className="text-gray-600 text-sm lg:text-base">
-                  Applied for:{" "}
-                  <span className="font-semibold">{app.job.title}</span>
+                  Applied for: <span className="font-semibold">{app.job.title}</span>
                 </p>
               </div>
 
