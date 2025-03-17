@@ -69,3 +69,17 @@ export const getUserApplications = (id) =>
       throw new Error('Error updating user image: ' + error.message);
     }
   };
+ export const getUserByIdQuery = (id)=>{
+   return prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      bio: true,
+      image: true,
+      country: true,
+      city: true,
+    },
+  });
+ }
