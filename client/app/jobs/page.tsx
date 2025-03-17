@@ -58,7 +58,7 @@ const Jobs = () => {
     data: userData,
     error: userError,
     isLoading: userLoading,
-  } = useGetUserByIdQuery(user);
+  } = useGetUserByIdQuery(id);
 
   const [createApplication, { isLoading: isApplicationLoading }] = useCreateApplicationMutation();
   const { data, isLoading, error } = useGetJobsQuery({

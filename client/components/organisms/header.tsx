@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
-import { Bell, BriefcaseBusiness, House, LogOut } from 'lucide-react';
+import { Bell, BriefcaseBusiness, House, IdCardIcon, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useReadNotificationQuery } from '@/redux/apis/private/notificationsApi';
@@ -11,7 +11,7 @@ import Image from 'next/image';
 const Header = () => {
   const { user, role, id, logout } = useAuth();
   const decodedUserName = encodeURIComponent(user);
-  const { data: userDetails } = useGetUserByIdQuery(user);
+  const { data: userDetails } = useGetUserByIdQuery(id);
   const pathname = usePathname();
 
   // State for dropdown visibility
