@@ -60,7 +60,13 @@ const UserForm :React.FC<userFormProps>=({
           type="text" 
           placeholder="Enter name" 
           value={userData.name} 
-          onChange={(e) => setUserData({ ...userData, name: e.target.value })} 
+          onChange={(e) => {
+            // Normalize the input value
+            const normalizedValue = e.target.value
+              .replace(/\s+/g, ' ') 
+              .trim();
+            setUserData({ ...userData, name: normalizedValue });
+          }}
           className="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring-2 text-black focus:ring-blue-500"
         />
       </label>

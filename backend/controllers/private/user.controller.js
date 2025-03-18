@@ -27,7 +27,7 @@ export const getAllUsers = async (req, res) => {
 export const getUserByName = async (req, res) => {
   try {
     const { name } = req.params;
-    const user = await findUserByName(name.trim());
+    const user = await findUserByName(name);
     if (!user) return res.status(404).json({ error: "User not found" });
     res.status(200).json(user);
   } catch (error) {
