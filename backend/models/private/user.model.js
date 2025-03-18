@@ -57,6 +57,31 @@ export const getUserApplications = (id) =>
       },
     },
   });
+  export const getUserApplicationsByName = async (userName) => {
+    return prisma.user.findFirst({
+      where: { name: userName }, 
+      select: {
+        applications: {
+          select: {
+            id: true,
+            status: true,
+            createdAt: true,
+            job: {
+              select: {
+                title: true,
+                recruiter: {
+                  select: {
+                    company: true,
+                    image: true
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  };
   
  export const updateImageByUserId = async (id, imageUrl) => {
     try {

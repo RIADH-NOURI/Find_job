@@ -24,6 +24,9 @@ export const usersApi = createApi({
     getApplicationByUserId: builder.query({
       query: (id) => `/user/${id}/applications`,
     }),
+    getApplicationByUserName: builder.query({
+      query: (name) => `/user/${name}/applications`,
+    }),
     createUser: builder.mutation({
       query: (data) => ({
         url: "/users",
@@ -58,4 +61,5 @@ export const {
   useGetApplicationByUserIdQuery,
   useUpdateUserMutation,
   useUpdateProfileImageMutation,
+  useGetApplicationByUserNameQuery,
 } = usersApi;

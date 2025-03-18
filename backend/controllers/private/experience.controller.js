@@ -39,6 +39,23 @@ export const getExperiencesByUserId = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch experiences" });
   }
 };
+export const getExperiencesByUserName = async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    // Check if userId is valid
+
+    const experiences = await ExperienceModel.getExperiencesByUserName(name);
+    if (!experiences || experiences.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    res.status(200).json(experiences);
+  } catch (error) {
+    console.error("Error fetching experiences:", error);
+    res.status(500).json({ error: "Failed to fetch experiences" });
+  }
+};
 
 // Update an experience
 export const updateExperience = async (req, res) => {

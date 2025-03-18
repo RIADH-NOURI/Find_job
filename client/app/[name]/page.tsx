@@ -4,14 +4,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import {
-  useGetApplicationByUserIdQuery,
+  useGetApplicationByUserNameQuery,
   useUpdateUserMutation,
   useGetUserByNameQuery,
 } from "@/redux/apis/private/userApi";
 import { useParams, useRouter } from "next/navigation";
 import {
   useCreateExperiencesMutation,
-  useGetExperiencesByUserQuery,
+  useGetExperiencesByUserNameQuery,
   useDeleteExperiencesMutation,
 } from "@/redux/apis/private/experiencesUserApi"
 import ProfileInfo from "@/components/templates/user/profile";
@@ -97,9 +97,9 @@ const Page = () => {
   }
   const { data: user, error, isLoading } = useGetUserByNameQuery(userName);
   const { data: applications, isLoading: applicationsLoading ,refetch} =
-    useGetApplicationByUserIdQuery(loggedInUserId);
+    useGetApplicationByUserNameQuery(userName);
   const { data: experiences, isLoading: experiencesLoading } =
-    useGetExperiencesByUserQuery(loggedInUserId);
+    useGetExperiencesByUserNameQuery(userName);
   const [updateUser] = useUpdateUserMutation();
   const [createExperiences] = useCreateExperiencesMutation();
   const [deleteExperiences] = useDeleteExperiencesMutation();

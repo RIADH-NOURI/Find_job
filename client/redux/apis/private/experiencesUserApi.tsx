@@ -7,12 +7,19 @@ export const experiencesApi = createApi(
         baseQuery: customBaseQuery,
         tagTypes: ["Experiences"],
         endpoints: (builder) => ({
-           getExperiencesByUser: builder.query({
+           getExperiencesByUserId: builder.query({
                query: (id) => ({
                 url:`/user/${id}/experiences`
                }),
                providesTags:['Experiences']
            }),
+           getExperiencesByUserName: builder.query({
+            query: (name) => ({
+             url:`/user/name/${name}/experiences`
+            }),
+            providesTags:['Experiences']
+        }),
+
            createExperiences: builder.mutation({
                query: ({...data}) => ({
                    url: "/create/experience",
@@ -46,4 +53,4 @@ export const experiencesApi = createApi(
     }
 )
 
-export const { useGetExperiencesByUserQuery, useCreateExperiencesMutation, useUpdateExperiencesMutation, useDeleteExperiencesMutation, useGetExperiencesCountByUserIdQuery } = experiencesApi;
+export const { useGetExperiencesByUserIdQuery, useCreateExperiencesMutation, useUpdateExperiencesMutation, useDeleteExperiencesMutation, useGetExperiencesCountByUserIdQuery, useGetExperiencesByUserNameQuery } = experiencesApi;

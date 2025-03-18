@@ -1,11 +1,12 @@
 import express from 'express';
-import { createExperience ,getExperiencesByUserId,deleteExperience,updateExperience,getExperienceById,getAllExperiences,getExperiencesCountByUserId} from '../../controllers/private/experience.controller.js';
+import { createExperience ,getExperiencesByUserId,deleteExperience,updateExperience,getExperienceById,getAllExperiences,getExperiencesCountByUserId,getExperiencesByUserName} from '../../controllers/private/experience.controller.js';
 import { validateExperience } from '../../validators/experienceValidator.js';
 import { rateLimitMiddelware } from '../../middlewares/rateLimitMiddelware.js';
 const router = express.Router();
 
 router.post('/create/experience',validateExperience,rateLimitMiddelware, createExperience);
 router.get('/user/:userId/experiences', getExperiencesByUserId);
+router.get('/user/name/:name/experiences', getExperiencesByUserName);
 router.delete('/experience/:id',rateLimitMiddelware, deleteExperience);
 
 router.get('/experience/:id', getExperienceById);

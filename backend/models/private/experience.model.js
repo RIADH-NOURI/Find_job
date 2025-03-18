@@ -15,6 +15,15 @@ export const getExperiencesByUserId = (userId) => {
         },
     });
 }
+export const getExperiencesByUserName = (userName) => {
+    return prisma.experience.findMany({
+        where: {
+            user: {
+                is: { name: userName } 
+            }
+        },
+    });
+}
 
 export const deleteExperience = (experienceId) => {
     return prisma.experience.delete({

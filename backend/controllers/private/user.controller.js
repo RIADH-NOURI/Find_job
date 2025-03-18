@@ -6,6 +6,7 @@ import {
   deleteUserById,
   getUserApplications,
   updateImageByUserId,
+  getUserApplicationsByName,
   
 } from "../../models/private/user.model.js";
 import {uploadImageToCloudinary}from "../../services/cloudinary.service.js";
@@ -63,6 +64,17 @@ export const getApplicationByUserId = async (req, res) => {
   try {
     const { id } = req.params;
     const applications = await getUserApplications(id);
+    if (!applications) return res.status(404).json({ error: "User not found" });
+
+    res.status(200).json(applications.applications);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch applications" });
+  }
+};
+export const getApplicationByUserName = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const applications = await getUserApplicationsByName(name);
     if (!applications) return res.status(404).json({ error: "User not found" });
 
     res.status(200).json(applications.applications);

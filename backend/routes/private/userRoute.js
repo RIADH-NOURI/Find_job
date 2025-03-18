@@ -1,5 +1,5 @@
 import express from 'express';
-import {getAllUsers,getUserByName,getApplicationByUserId,updateUser,deleteUser, uploadProfileImage,getUserById} from '../../controllers/private/user.controller';
+import {getAllUsers,getUserByName,getApplicationByUserId,updateUser,deleteUser, uploadProfileImage,getUserById,getApplicationByUserName} from '../../controllers/private/user.controller';
 import { uploadMiddleware } from '../../middlewares/uploadMiddleware';
 import { uploadRateLimiter } from '../../middlewares/uploadRateLimit';
 import { rateLimitMiddelware } from '../../middlewares/rateLimitMiddelware';
@@ -7,7 +7,7 @@ import { rateLimitMiddelware } from '../../middlewares/rateLimitMiddelware';
 const router = express.Router();
 router.get('/users', getAllUsers);
 router.get('/user/name/:name', getUserByName);
-router.get('/user/:id/applications', getApplicationByUserId);
+router.get('/user/:name/applications', getApplicationByUserName);
 router.get('/user/id/:id', getUserById);
 router.put('/user/:id',rateLimitMiddelware, updateUser);
 router.delete('/user/:id', deleteUser);
