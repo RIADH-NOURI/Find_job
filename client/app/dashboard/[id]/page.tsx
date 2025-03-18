@@ -7,7 +7,7 @@ import {
 } from "@/redux/apis/private/recruiterApi";
 import { useState } from "react";
 import { useGetUserByIdQuery } from "@/redux/apis/private/userApi";
-import { useGetExperiencesByUserQuery } from "@/redux/apis/private/experiencesUserApi";
+import { useGetExperiencesByUserIdQuery } from "@/redux/apis/private/experiencesUserApi";
 import { useParams } from "next/navigation";
 import Dashboard from "@/components/layout/dashboard";
 import Loader from "@/components/moleculles/loader";
@@ -59,7 +59,7 @@ const DashboardPage = () => {
   const { isLoading: isUserLoading, data: user } =
     useGetUserByIdQuery(selecteId);
   const { isLoading: isExperiencesLoading, data: experiences } =
-    useGetExperiencesByUserQuery(selecteId);
+    useGetExperiencesByUserIdQuery(selecteId);
   const [updateStatusApplication, { isLoading: isUpdateLoading }] =
     useUpdateStatusApplicationMutation();
   const [deleteRecruiter, { isLoading: isDeleteLoading }] =
