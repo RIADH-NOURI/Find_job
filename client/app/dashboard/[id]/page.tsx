@@ -15,7 +15,7 @@ import dynamic from "next/dynamic";
 import StatsCards from "@/components/dashboard/templates/recruiter/statsCards";
 import ApplicationList from "@/components/dashboard/templates/recruiter/applicationList";
 import { useAuth } from "@/hooks/useAuth";
-import { Pagination } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
 
 const UserProfileForm = dynamic(
   () => import("@/components/dashboard/forms/userProfileForm"),
