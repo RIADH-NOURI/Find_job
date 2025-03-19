@@ -105,6 +105,7 @@ export const getUserApplications = (id) =>
       image: true,
       country: true,
       city: true,
+       status:true
     },
   });
  }
